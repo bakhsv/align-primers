@@ -64,7 +64,15 @@ amplimer_re = re.compile(r'Amplimer (\d+)')
 hits_re = re.compile(
     r'\s*\S+ hits (forward|reverse) strand at \[?(\d+)\]? with \d+ mismatches'
 )
-usa_re = re.compile(r'(?P<format>\w+::)?(?P<file>[^:]+)(?P<entry>:\w+)?')
+usa_re = re.compile(r"""
+(?P<format>\w+::)?  # optional format; passed to primersearch if specified,
+                    # else 'fasta' (see parse_usa function)
+(?P<file>[^:]+)     # filename: all symbols except colon allowed
+(?P<entry>:[^:]+)?  # optional entry name inside the file: all symbols except
+                    # colon allowed
+""",
+    re.VERBOSE
+)
 
 
 def parse_usa(usa: str) -> dict[str, str]:
@@ -74,9 +82,9 @@ def parse_usa(usa: str) -> dict[str, str]:
     out = m.groupdict()
     if not out['format']:
         out['format'] = 'fasta'
-    out['format'] = out['format'].strip(':')
+    out['format'] = out['format'].rstrip(':')
     if out['entry']:
-        out['entry'] = out['entry'].strip(':')
+        out['entry'] = out['entry'].lstrip(':')
     return out
 
 

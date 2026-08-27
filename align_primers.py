@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """Search for primers in reference sequence and append them to alignment.
 
 Takes in an alignment that has a reference sequence, i.e. the sequence
@@ -8,7 +7,7 @@ uniform sequence address. For example, if you have an alignment file
 called `alignment.fasta` and the reference sequence inside it called `ref`,
 it looks like this:
 
-python3 align_primers.py -s alignment.fasta:ref -i coi.primers > aligment_with_primers.fasta
+python3 align_primers.py -s alignment.fasta:ref -i coi.primers > alignment_with_primers.fasta
 
 The contents of the `coi.primers` file in this example are:
 
